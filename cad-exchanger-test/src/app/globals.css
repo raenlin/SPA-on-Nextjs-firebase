@@ -1,1 +1,7 @@
 @layer reset, base, tokens, recipes, utilities;
+
+@layer tokens {
+  :root {
+    --color-header: #e7e0d8;
+  }
+}
