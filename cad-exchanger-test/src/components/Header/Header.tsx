@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import { css } from '../../../styled-system/css';
+import Link from 'next/link';
 
 const header_wrapper = css({
   padding: '20px',
@@ -11,6 +12,9 @@ const header_wrapper = css({
 const heading = css({
   fontSize: '1.5rem',
   fontWeight: '500',
+  '&:hover': {
+    color: 'var(--color-hover)',
+  },
 });
 
 const header = css({
@@ -23,7 +27,9 @@ function Header() {
   return (
     <header className={header}>
       <div className={header_wrapper}>
-        <h3 className={heading}>Rick Astley Company</h3>
+        <h3 className={heading}>
+          <Link href="/">Rick Astley Company</Link>
+        </h3>
         <Button variant="contained" href="/feedback">
           Contact us
         </Button>

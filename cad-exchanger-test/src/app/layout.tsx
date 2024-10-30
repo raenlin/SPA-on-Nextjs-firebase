@@ -13,6 +13,21 @@ const stylesBody = css({
 export const metadata: Metadata = {
   title: 'CAD Exchanger Test',
   description: 'Fun test for frontend developer vacancy',
+  openGraph: {
+    title: 'CAD Exchanger Test',
+    description: 'Fun test for frontend developer vacancy',
+    siteName: 'CAD Exchanger',
+    images: [
+      {
+        url: 'https://static1.srcdn.com/wordpress/wp-content/uploads/2021/02/Rick-Astley-Never-Gonna-Give-You-Up-Remastered-Header.jpg',
+        width: 800,
+        height: 600,
+        alt: 'Rick Astley',
+        type: 'image/jpg',
+      },
+    ],
+    type: 'website',
+  },
 };
 
 export default function RootLayout({

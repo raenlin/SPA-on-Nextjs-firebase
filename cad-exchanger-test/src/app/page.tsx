@@ -1,11 +1,15 @@
+'use client';
+
 import Reason from '@/components/Reason/Reason';
 import { css } from '../../styled-system/css';
 import { Button } from '@mui/material';
+import YouTubeVideo from '@/components/Video/Video';
 
 const hero_section = css({
   marginTop: '20px',
   padding: '20px',
   display: 'flex',
+  flexWrap: 'wrap',
   justifyContent: 'space-between',
 });
 
@@ -48,7 +52,7 @@ export default function Home() {
             anyone who has ever experienced deep affection.
           </p>
         </div>
-        <div>VIDEO WILL BE HERE</div>
+        <YouTubeVideo />
       </section>
       <section className={reasons_section}>
         <h2

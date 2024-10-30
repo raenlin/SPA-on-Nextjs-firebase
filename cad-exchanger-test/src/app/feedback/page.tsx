@@ -1,30 +1,65 @@
-import { Button } from '@mui/material';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { css } from '../../../styled-system/css';
+import Form from '@/components/Form/Form';
+import { useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { formSchema } from '@/validation/formValidation';
+import { useForm } from 'react-hook-form';
+import { MyForm } from '@/components/Form/Form.type';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/firebase/firebase';
 
 const form_wrapper = css({
   padding: '40px 20px',
   textAlign: 'center',
 });
 
-const form = css({
-  padding: '20px',
-  display: 'flex',
-  flexDirection: 'column',
-  textAlign: 'left',
-  gap: '20px',
-  margin: 'auto',
-  border: '1px solid black',
-  borderRadius: '10px',
-});
-
-const input = css({
-  border: '1px solid var(--color-header)',
-  borderRadius: '5px',
-  padding: '5px',
-});
-
 function Feedback() {
-  return (
+  const router = useRouter();
+  const [responseMessage, setResponseMessage] = useState('');
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({ mode: 'onChange', resolver: yupResolver(formSchema) });
+
+  const submit = async (data: MyForm) => {
+    const isValid = await formSchema.isValid(data);
+
+    if (isValid) {
+      const responseMessage = `Thank you for your interest, ${data.name},`;
+      console.log(responseMessage);
+
+      try {
+        const docRef = await addDoc(collection(db, 'submissions'), data);
+        console.log('Document written with ID: ', docRef.id);
+        setResponseMessage(
+          `Thank you for your interest, ${data.name}. Your message has been received!`
+        );
+        router.push('/feedback');
+      } catch (error) {
+        console.error('Error saving data to Firebase:', error);
+        setResponseMessage(
+          'There was an error submitting your message. Please try again.'
+        );
+      }
+    }
+  };
+
+  return responseMessage ? (
+    <p
+      className={css({
+        textAlign: 'center',
+        margin: '30px',
+        fontWeight: '500',
+        fontSize: '1.2rem',
+      })}
+    >
+      {responseMessage}
+    </p>
+  ) : (
     <div className={form_wrapper}>
       <h2
         className={css({
@@ -41,27 +76,11 @@ function Feedback() {
           marginTop: '20px',
         })}
       >
-        <form className={form}>
-          <label htmlFor="name">Name</label>
-          <input
-            className={input}
-            type="text"
-            id="name"
-            placeholder="Name..."
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            className={input}
-            type="text"
-            id="email"
-            placeholder="email@gmail.com"
-          />
-          <label htmlFor="message">Message</label>
-          <textarea className={input} id="message" placeholder="Message..." />
-          <Button type="submit" variant="contained">
-            Send
-          </Button>
-        </form>
+        <Form
+          register={register}
+          onsubmit={handleSubmit(submit)}
+          errors={errors}
+        />
       </div>
     </div>
   );

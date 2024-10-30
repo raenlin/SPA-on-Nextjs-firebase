@@ -1,6 +1,7 @@
 import { css } from '../../../styled-system/css';
+import { ReasonProps } from './Reason.type';
 
-function Reason({ title, content }: { title: string; content: string }) {
+function Reason({ title, content }: ReasonProps) {
   return (
     <div>
       <h5

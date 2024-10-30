@@ -3,5 +3,6 @@
 @layer tokens {
   :root {
     --color-header: #e7e0d8;
+    --color-hover: #004048;
   }
 }
