@@ -2,7 +2,7 @@
 
 #### Deploy: [link](https://rick-astley-fun.netlify.app/)
 
-Description: Fun SPA about Rick Astley using iframe and form with validation and firebase. If you have problems with youtube please use vpn
+Description: Fun SPA about Rick Astley using iframe, form with validation and firebase. If you have problems with youtube please use VPN. Have fun!
 
 ### Getting Started
 
